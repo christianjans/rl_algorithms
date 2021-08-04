@@ -1,7 +1,14 @@
 import collections
 
 
-DoneTransition = collections.namedtuple("Transition",
+Transition = collections.namedtuple("Transition",
+                                    ("observation",
+                                     "action",
+                                     "reward",
+                                     "next_observation"))
+
+
+DoneTransition = collections.namedtuple("DoneTransition",
                                         ("observation",
                                          "action",
                                          "reward",
