@@ -73,7 +73,7 @@ class DQN:
 
   def step(self,
            observation: np.ndarray,
-           action,
+           action: int,
            reward: float,
            next_observation: np.ndarray,
            done: bool):

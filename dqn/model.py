@@ -29,7 +29,7 @@ class MLPModel(torch.nn.Module):
     # Output layer.
     self._layers.append(torch.nn.Linear(config.width, config.output_size))
 
-  def forward(self, x: torch.Tensor):
+  def forward(self, x: torch.Tensor) -> torch.Tensor:
     for layer in self._layers:
       x = layer(x)
     return x
