@@ -29,7 +29,7 @@ class MLPDistributionModel(torch.nn.Module):
 
     # Output layer.
     self._layers.append(torch.nn.Linear(config.width, config.output_size))
-    self._layers.append(torch.nn.Softmax())
+    self._layers.append(torch.nn.Softmax(dim=1))
 
   def forward(self, x: torch.Tensor) -> torch.Tensor:
     for layer in self._layers:
