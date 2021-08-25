@@ -139,38 +139,3 @@ class Reinforce:
     self._observation_sequences.append([])
     self._action_sequences.append([])
     self._reward_sequences.append([])
-
-
-if __name__ == "__main__":
-  import gym
-
-  EPISODES = 2000
-
-  env = gym.make("CartPole-v0")
-
-  assert isinstance(env.action_space, gym.spaces.Discrete)
-
-  reinforce_config = ReinforceConfig(nn_width=32,
-                                     nn_depth=4,
-                                     optimize_rate=10,
-                                     learning_rate=0.001,
-                                     gamma=0.999,
-                                     device="cpu",
-                                     observation_shape=env.observation_space.shape,
-                                     action_size=env.action_space.n)
-
-  reinforce_agent = Reinforce(reinforce_config)
-
-  for episode_index in range(EPISODES):
-    episode_return = 0.0
-    done = False
-    observation = env.reset()
-
-    while not done:
-      action = reinforce_agent.act(observation, explore=True)
-      next_observation, reward, done, _ = env.step(action)
-      reinforce_agent.step(observation, action, reward, next_observation, done)
-      episode_return += reward
-      observation = next_observation
-
-    print(f"Return in episode #{episode_index + 1}: {episode_return}")
