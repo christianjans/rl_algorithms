@@ -44,12 +44,10 @@ class Reinforce:
     self._reset_experience()
 
   def act(self, observation: np.ndarray, explore: bool = False):
-    # print(f"observation: {observation}")
     observation = observation.astype(np.float32)
     observation = torch.from_numpy(observation).unsqueeze(0)
     with torch.no_grad():
       probs = self._policy(observation)
-    # print(f"probs: {probs}")
 
     distribution = torch.distributions.Categorical(probs)
     action = distribution.sample().item()
@@ -93,15 +91,9 @@ class Reinforce:
         discount *= self._gamma
 
       returns.append(trajectory_return)
-    # print(returns)
     returns = torch.tensor(returns)
-    # print(returns)
-    # print(torch.mean(returns))
-    # print(torch.std(returns))
     # NOTE: Only use if the batch size > 1.
     returns = (returns - torch.mean(returns)) / (torch.std(returns) + 1e-6)
-
-    # print(f"returns: {returns}")
 
     # Calculate the policy gradient.
     policy_gradient = []
@@ -109,24 +101,14 @@ class Reinforce:
       observation_batch = torch.stack(observation_sequence)
       action_batch = torch.stack(action_sequence)
 
-      # print(f"observation_batch: {observation_batch}")
-      # print(f"action_batch: {action_batch}")
-
       probs = self._policy(observation_batch)
-      # print(f"probs: {probs}")
       distribution = torch.distributions.Categorical(probs)
       action_log_probs = distribution.log_prob(action_batch)
 
-      # print(f"action_log_probs: {action_log_probs}")
-      # print(f"trajectory_return: {trajectory_return}")
-
       policy_gradient.append(torch.sum(action_log_probs) * trajectory_return)
-    # print(f"policy_gradient: {policy_gradient}")
     policy_gradient = torch.stack(policy_gradient)
     policy_gradient = torch.sum(policy_gradient)
     policy_gradient = -policy_gradient  # TODO: Is this correct?
-
-    # print(f"policy_gradient: {policy_gradient}")
 
     self._optimizer.zero_grad()
     policy_gradient.backward()
