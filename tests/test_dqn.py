@@ -7,7 +7,7 @@ from tests.common import run_agent_in_environment
 
 
 class DQNTest(unittest.TestCase):
-  def test_dqn_discrete_action(self):
+  def test_dqn_cartpole_v0(self):
     env = gym.make("CartPole-v0")
 
     EPISODES_ALLOWED = 200

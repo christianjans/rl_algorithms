@@ -7,7 +7,7 @@ from reinforce.agent import Reinforce, ReinforceConfig
 
 
 class ReinforceTest(unittest.TestCase):
-  def test_reinforce_discrete_action(self):
+  def test_reinforce_cartpole_v0(self):
     env = gym.make("CartPole-v0")
 
     EPISODES_ALLOWED = 2000
