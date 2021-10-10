@@ -9,6 +9,8 @@ from typing import List, Tuple
 import numpy as np
 import torch
 
+from agent import Agent
+
 
 @dataclasses.dataclass(frozen=True)
 class ReinforceConfig:
@@ -22,7 +24,7 @@ class ReinforceConfig:
   action_size: int
 
 
-class Reinforce:
+class Reinforce(Agent):
   def __init__(self, config: ReinforceConfig):
     assert len(config.observation_shape) == 1  # Only support MLP for now.
 

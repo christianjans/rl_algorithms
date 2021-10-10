@@ -6,6 +6,7 @@ from utils.transitions import DoneTransition
 import numpy as np
 import torch
 
+from agent import Agent
 from utils.replay_buffer import ReplayBuffer
 
 
@@ -26,7 +27,7 @@ class DDPGConfig:
   action_size: int
 
 
-class DDPG:
+class DDPG(Agent):
   def __init__(self, config: DDPGConfig):
     assert len(config.observation_shape) == 1  # Only support MLP for now.
 

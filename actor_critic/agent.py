@@ -5,6 +5,7 @@ import numpy as np
 import torch
 
 from actor_critic.model import MLPActorCritic, MLPActorCriticModelConfig
+from agent import Agent
 
 
 @dataclasses.dataclass(frozen=True)
@@ -19,7 +20,7 @@ class ActorCriticConfig:
   action_size: int
 
 
-class ActorCritic:
+class ActorCritic(Agent):
   def __init__(self, config: ActorCriticConfig):
     assert len(config.observation_shape) == 1  # Only support MLP for now.
 

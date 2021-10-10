@@ -7,6 +7,7 @@ from typing import Tuple
 import numpy as np
 import torch
 
+from agent import Agent
 from dqn.model import MLPModel, MLPModelConfig
 from utils.replay_buffer import ReplayBuffer
 from utils.transitions import DoneTransition
@@ -30,7 +31,7 @@ class DQNConfig:
   action_size: int
 
 
-class DQN:
+class DQN(Agent):
   def __init__(self, config: DQNConfig):
     assert len(config.observation_shape) == 1  # Only support MLP for now.
 
