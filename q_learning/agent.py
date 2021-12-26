@@ -23,7 +23,6 @@ class QLearning(Agent):
     self._gamma = config.gamma
     self._epislon = config.epsilon
     self._num_actions = config.num_actions
-    self._next_action = None
     self._q = [[config.initial_value for _ in range(config.num_actions)]
                for _ in range(config.num_states)]
 
