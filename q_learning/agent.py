@@ -41,7 +41,7 @@ class QLearning(Agent):
     self._q[state][action] = \
         q + self._alpha * (reward + self._gamma * max_q - q)
 
-  def _choose_action(self, state) -> int:
+  def _choose_action(self, state: int) -> int:
     if np.random.uniform(0, 1) < self._epislon:
       # Choose an action randomly.
       action = np.random.randint(0, self._num_actions)
